@@ -1,0 +1,34 @@
+name: Build the artifact and preview infrastructure changes
+on:
+  push:
+    branches:
+      - feature/backend-pulumi-preview   
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write # Only needed when commenting on pull requests
+
+jobs:
+  preview:
+    name: Preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: statebucket/package.json
+      - name: Authenticate with Pulumi Cloud
+        uses: pulumi/auth-actions@v1
+        with:
+          organization: simonestella-org
+          requested-token-type: urn:pulumi:token-type:access_token:organization
+      - name: Load the ESC environment
+        uses: pulumi/esc-action@v3
+        with:
+          environment: simonestella-org/simone-studio/backend
+      - name: Verify environment variables were injected
+        run: |
+          echo "Testing env injection..."
+          echo "FOO=$EXAMPLE_SETTING"
+          echo "S{example.setting}"
+          echo "TEST_ENV=$TEST_ENV"
