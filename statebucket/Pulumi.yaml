@@ -1,0 +1,10 @@
+name: backend
+description: Deploy S3 pulumi state bucket
+runtime:
+  name: nodejs
+  options:
+    packagemanager: yarn
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
