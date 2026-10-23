@@ -1,0 +1,4 @@
+encryptionsalt: v1:GGqaEZcmowA=:v1:As4e3Cup3EcYLxFw:gLX8I9cEWjIdAKix8ASBAReA17KMeA==
+config:
+  aws:region: eu-central-1
+  backend:org: simone-studio
